@@ -1,0 +1,168 @@
+{% extends "layouts/base.twig" %}
+
+{% block content %}
+<div class="dashboard-container">
+    {% include "components/header.twig" %}
+
+    <main class="dashboard-main">
+        <div class="container">
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #2563eb"></div>
+                    <div class="stat-content">
+                        <h3>{{ stats.total }}</h3>
+                        <p>Total Tickets</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #10b981"></div>
+                    <div class="stat-content">
+                        <h3>{{ stats.open }}</h3>
+                        <p>Open Tickets</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #f59e0b"></div>
+                    <div class="stat-content">
+                        <h3>{{ stats.in_progress }}</h3>
+                        <p>In Progress</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #6b7280"></div>
+                    <div class="stat-content">
+                        <h3>{{ stats.closed }}</h3>
+                        <p>Resolved</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-actions">
+                <a href="/tickets" class="action-card">
+                    <h3>Manage Tickets</h3>
+                    <p>View, create, and manage support tickets</p>
+                    <span class="action-arrow">→</span>
+                </a>
+                
+                <div class="action-card">
+                    <h3>Analytics</h3>
+                    <p>View performance metrics and reports</p>
+                    <span class="action-arrow">→</span>
+                </div>
+                
+                <div class="action-card">
+                    <h3>Team Settings</h3>
+                    <p>Manage team members and permissions</p>
+                    <span class="action-arrow">→</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<style>
+.dashboard-container {
+    min-height: 100vh;
+    background: #f8fafc;
+    width: 100%;
+}
+
+.dashboard-main {
+    padding: 2rem 0;
+    width: 100%;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-content h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin: 0;
+}
+
+.stat-content p {
+    color: #6b7280;
+    margin: 0;
+}
+
+.dashboard-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.action-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+
+.action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.action-card h3 {
+    font-size: 1.25rem;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.action-card p {
+    color: #6b7280;
+    margin: 0;
+}
+
+.action-arrow {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 1.5rem;
+    color: #2563eb;
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-actions {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

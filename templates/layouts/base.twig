@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicketFlow - {% block title %}Streamline Your Support Process{% endblock %}</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2563eb;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #2563eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .form-group input.error,
+        .form-group select.error,
+        .form-group textarea.error {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        /* Toast Styles */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 400px;
+        }
+
+        .toast {
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .toast-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .toast-error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .toast-warning {
+            background: #fffbeb;
+            color: #92400e;
+            border: 1px solid #fed7aa;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 0.75rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #1f2937;
+        }
+
+        .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .close:hover {
+            color: #374151;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+
+        {% block styles %}{% endblock %}
+    </style>
+</head>
+<body>
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container">
+        {% if toasts is defined %}
+            {% for toast in toasts %}
+                <div class="toast toast-{{ toast.type }}">
+                    {{ toast.message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <script>
+        // Toast functionality
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 5000);
+        }
+
+        // Auto-remove existing toasts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(toast => {
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000);
+            });
+        });
+
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Form validation helper
+        function validateRequiredFields(fields) {
+            let isValid = true;
+            
+            fields.forEach(field => {
+                const element = document.getElementById(field.id);
+                const errorElement = document.getElementById(field.errorId);
+                
+                if (element && errorElement) {
+                    if (!element.value.trim()) {
+                        element.classList.add('error');
+                        errorElement.textContent = field.message;
+                        isValid = false;
+                    } else {
+                        element.classList.remove('error');
+                        errorElement.textContent = '';
+                    }
+                }
+            });
+            
+            return isValid;
+        }
+
+        // Clear form errors
+        function clearFormErrors(formId) {
+            const form = document.getElementById(formId);
+            if (form) {
+                const errors = form.querySelectorAll('.error-message');
+                errors.forEach(error => error.textContent = '');
+                
+                const errorFields = form.querySelectorAll('.error');
+                errorFields.forEach(field => field.classList.remove('error'));
+            }
+        }
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

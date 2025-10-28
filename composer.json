@@ -1,0 +1,19 @@
+{
+    "name": "yourusername/ticket-management-twig",
+    "description": "Ticket management application built with Twig and PHP",
+    "type": "project",
+    "require": {
+        "php": "^7.4|^8.0",
+        "twig/twig": "^3.0",
+        "symfony/http-foundation": "^5.0|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "TicketFlow\\": "src/",
+            "TicketFlow\\Controllers\\": "controllers/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
